@@ -32,22 +32,20 @@ export default function Home() {
       const response = await fetch(`/api/jobs?${params.toString()}`);
       const result = await response.json();
 
-      setJobs(result.data); // Assuming result contains { data: jobs }
-      setTotalPages(result.totalPages || 1); // Set the total number of pages
+      setJobs(result.data);
+      setTotalPages(result.totalPages || 1);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // Fetch all jobs when component mounts
   useEffect(() => {
-    fetchJob(currentPage); // Fetch jobs for the current page
+    fetchJob(currentPage);
   }, [currentPage]);
 
-  // Search button handler
   const handleSearch = () => {
-    setCurrentPage(1); // Reset to the first page when a new search is made
-    fetchJob(1); // Trigger job fetching with current filters on the first page
+    setCurrentPage(1);
+    fetchJob(1);
   };
 
   return (
@@ -108,14 +106,13 @@ export default function Home() {
           <p>No jobs found.</p>
         )}
       </div>
-      {/* Pagination Component placed at the bottom */}
       <div className="flex justify-center mt-4">
         <Pagination
-          total={totalPages} // Total number of pages
-          initialPage={currentPage} // Initial page (controlled by state)
+          total={totalPages}
+          initialPage={currentPage}
           onChange={(page) => {
-            setCurrentPage(page); // Handle page change
-            fetchJob(page); // Fetch jobs for the new page
+            setCurrentPage(page);
+            fetchJob(page);
           }}
         />
       </div>
